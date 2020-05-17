@@ -11,5 +11,5 @@ app.use(errors());
 
 // const isStackShown = process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production';
 // // app.use(apiErrorHandler({ isStackShown }));
-
+app.get('*', (req, res) => res.sendStatus(404).render('pages/index'));
 export default app;
