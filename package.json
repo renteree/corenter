@@ -8,7 +8,9 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "server": "node src/index.ts"
   },
   "dependencies": {
     "api-error-handler": "^1.0.0",
