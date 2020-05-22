@@ -1,4 +1,4 @@
-// import db from './common/db';
+import db from './common/db';
 import app from './app';
 require('dotenv').config();
 
