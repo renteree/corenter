@@ -1,5 +1,6 @@
-// import db from './common/db';
 import app from './app';
+// import db from './common/db';
+
 require('dotenv').config();
 
 const port = process.env.NODE_PORT || 8080;
