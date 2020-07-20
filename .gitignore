@@ -3,6 +3,7 @@ node_modules
 .idea
 npm-debug.log
 dist
+bu
 
 # Local development
 *.env
