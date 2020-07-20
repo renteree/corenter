@@ -13,7 +13,7 @@ const app = express();
 // const isStackShown = process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production';
 // // app.use(apiErrorHandler({ isStackShown }));
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../pages/index.html')));
+app.get('*', (req, res) => res.send('Hello world'));
 
 app.use((err) => {
   console.log(err);
