@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Rent platform",
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
   "main": "src/index.ts",
   "scripts": {
@@ -21,12 +21,14 @@
     "celebrate": "^12.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^17.1.1",
     "sequelize": "^5.21.10"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.6",
     "@types/hapi__joi": "^17.1.0",
+    "@types/joi": "^14.3.4",
     "@types/node": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",

@@ -1,13 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
-import path from "path";
+import path from 'path';
+import tenantRoutes from './tenant/tenanRoutes';
 
 const app = express();
 app.use(bodyParser.json());
 
 app.use(errors());
-// should be after joi, they also throw exceptions
+tenantRoutes(app);
 
 // const isStackShown = process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production';
 // // app.use(apiErrorHandler({ isStackShown }));
