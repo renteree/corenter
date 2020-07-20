@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
-import path from "path";
+import path from 'path';
 
 const app = express();
 app.use(bodyParser.json());
