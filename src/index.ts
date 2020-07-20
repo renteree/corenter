@@ -9,6 +9,9 @@ async function main() {
 }
 main();
 
+process.on("uncaughtException", (err) => {
+  console.log(err);
+});
 // doesn't work, TODO: check why
 // process.on('SIGTERM', async () => {
 //   // eslint-disable-next-line no-console

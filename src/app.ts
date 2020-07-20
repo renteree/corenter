@@ -5,14 +5,18 @@ import path from 'path';
 import tenantRoutes from './tenant/tenanRoutes';
 
 const app = express();
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-app.use(errors());
-tenantRoutes(app);
+// app.use(errors());
+// tenantRoutes(app);
 
 // const isStackShown = process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production';
 // // app.use(apiErrorHandler({ isStackShown }));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../pages/index.html')));
+
+app.use((err) => {
+  console.log(err);
+});
 
 export default app;
