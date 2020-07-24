@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "description": "Rent platform",
   "engines": {
-    "node": "13.x"
+    "node": "14.x"
   },
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "node dist/index.js",
+    "start": "ts-node src/index.ts",
     "build": "tsc",
-    "server": "ts-node src/index.ts",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
     "test": "echo \"No test specified\""
@@ -24,7 +23,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^17.1.1",
-    "sequelize": "^5.21.10"
+    "pg": "^8.3.0",
+    "sequelize": "^5.21.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",

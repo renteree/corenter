@@ -2,13 +2,15 @@ import path from 'path';
 import Sequelize from 'sequelize';
 import modelsConfig from './modelsConfig';
 import sequelizeOptions from './sequelizeOptions';
+import config from "../config";
 
-const db = {};
-const sequelize = new Sequelize(sequelizeOptions);
+const db: {[index: string]:any} = {};
+// @ts-ignore
+const sequelize = new Sequelize(config.database.uri, sequelizeOptions);
 
 modelsConfig.forEach((file) => {
   const model = sequelize.import(path.resolve(__dirname, '../../', file));
-  db[model.name] = model;
+  if (model) db[model.name] = model;
 });
 
 Object.keys(db).forEach((modelName) => {

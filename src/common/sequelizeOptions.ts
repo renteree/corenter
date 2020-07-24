@@ -23,6 +23,12 @@ const sequelizeOptions = {
     idle: 10000,
   },
   operatorsAliases: 0,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
 };
 
 export default sequelizeOptions;

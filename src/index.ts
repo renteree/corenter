@@ -2,7 +2,7 @@ import app from './app';
 
 require('dotenv').config();
 
-const port = process.env.NODE_PORT || 8080;
+const port = process.env.PORT || 8080;
 async function main() {
   // eslint-disable-next-line no-console
   app.listen(port, () => console.log(`Listening on port ${port}.`));

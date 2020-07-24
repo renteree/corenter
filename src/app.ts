@@ -1,22 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { errors } from 'celebrate';
-import path from 'path';
+import { errors as joiErrors } from 'celebrate';
 import tenantRoutes from './tenant/tenanRoutes';
 
 const app = express();
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
-// app.use(errors());
-// tenantRoutes(app);
+app.use(errors());
+tenantRoutes(app);
+app.get('/', (req, res) => res.send('Hello world'));
 
-// const isStackShown = process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production';
-// // app.use(apiErrorHandler({ isStackShown }));
-
-app.get('*', (req, res) => res.send('Hello world'));
-
-app.use((err) => {
-  console.log(err);
-});
+app.use(joiErrors());
 
 export default app;
