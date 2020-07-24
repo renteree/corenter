@@ -2,7 +2,7 @@ import path from 'path';
 import Sequelize from 'sequelize';
 import modelsConfig from './modelsConfig';
 import sequelizeOptions from './sequelizeOptions';
-import config from "../config";
+import config from '../config';
 
 const db: {[index: string]:any} = {};
 // @ts-ignore
