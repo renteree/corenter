@@ -1,11 +1,10 @@
 import path from 'path';
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 import modelsConfig from './modelsConfig';
 import sequelizeOptions from './sequelizeOptions';
 import config from '../config';
 
 const db: {[index: string]:any} = {};
-// @ts-ignore
 const sequelize = new Sequelize(config.database.uri, sequelizeOptions);
 
 modelsConfig.forEach((file) => {

@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { errors as joiErrors } from 'celebrate';
-import tenantRoutes from './tenant/tenanRoutes';
+import tenantRoutes from './tenant/tenantRoutes';
 
 const app = express();
 app.use(bodyParser.json());
