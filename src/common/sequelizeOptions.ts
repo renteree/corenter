@@ -1,5 +1,5 @@
+import { Options } from 'sequelize';
 import config from '../config';
-import { Options } from 'sequelize/types/lib/sequelize';
 
 const sequelizeOptions: Options = {
   database: config.database.name,
