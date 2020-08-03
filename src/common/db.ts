@@ -1,24 +1,19 @@
-import path from 'path';
 import { Sequelize } from 'sequelize';
-import modelsConfig from './modelsConfig';
 import sequelizeOptions from './sequelizeOptions';
 import config from '../config';
+import tenantInit, { Tenant } from '../models/TenantModel';
+import userInit, { User } from '../models/UserModel';
+import locationInit, { Location } from '../models/LocationModel';
 
-const db: {[index: string]:any} = {};
 const sequelize = new Sequelize(config.database.uri, sequelizeOptions);
+export const initDB = () => {
+  userInit(sequelize);
+  locationInit(sequelize);
+  tenantInit(sequelize);
 
-modelsConfig.forEach((file) => {
-  const model = sequelize.import(path.resolve(__dirname, '../../', file));
-  if (model) db[model.name] = model;
-});
+  // Set table associations
+  Tenant.belongsTo(User, { targetKey: 'id', as: 'user' });
+  Tenant.belongsTo(Location, { targetKey: 'id', as: 'location' });
+};
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-export default db;
+export default sequelize;
