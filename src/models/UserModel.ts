@@ -7,6 +7,7 @@ export interface UserAttributes {
   id: number;
   name: string;
   phone: string;
+  createdAt?: Date;
 }
 
 // Some attributes are optional in `User.build` and `User.create` calls

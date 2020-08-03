@@ -5,7 +5,10 @@ import normalizeTenant from '../normalization/normalizeTenant';
 export default async function listTenantController(req: Request, res: Response) {
   try {
     const searchOptions = {
-      include: ['user', 'location'],
+      include: [
+        Tenant.associations.user,
+        Tenant.associations.location,
+      ],
     };
 
     const result: Tenant[] = await Tenant.findAll(searchOptions);

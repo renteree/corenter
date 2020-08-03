@@ -17,6 +17,7 @@ export interface TenantAttributes {
   willPayFee: boolean;
   housingType: string;
   currency: string;
+  createdAt?: Date;
 }
 
 // Some attributes are optional in `Tenant.build` and `Tenant.create` calls
@@ -51,9 +52,9 @@ export class Tenant extends Model<TenantAttributes, TenantCreationAttributes>
 
     public readonly updatedAt!: Date;
 
-    public readonly user?: User;
+    public readonly user!: User;
 
-    public readonly location?: Location;
+    public readonly location!: Location;
 
     public static associations: {
       user: Association<User, Tenant>;
