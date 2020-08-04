@@ -21,7 +21,12 @@ export default function normalizeTenant({
   currency,
   createdAt,
 }: Tenant): NormalizedTenant {
-  const { id: userId, phone, name } = user;
+  const {
+    id: userId,
+    phone,
+    name,
+    social,
+  } = user;
 
   return {
     id,
@@ -31,6 +36,7 @@ export default function normalizeTenant({
       id: userId,
       phone,
       name,
+      social,
     },
     location,
     tenantsDescription,

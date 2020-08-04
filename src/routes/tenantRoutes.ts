@@ -23,6 +23,7 @@ export default function tenantRoutes(app: Express) {
         description: Joi.string(),
         name: Joi.string().required(),
         phone: Joi.string().required(),
+        social: Joi.string(),
         country: Joi.string().required(),
         city: Joi.string(),
         tenantsDescription: Joi.string(),

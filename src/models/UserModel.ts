@@ -7,6 +7,7 @@ export interface UserAttributes {
   id: number;
   name: string;
   phone: string;
+  social?: string;
   createdAt?: Date;
 }
 
@@ -20,6 +21,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes>
     public name!: string;
 
     public phone!: string;
+
+    public social?: string;
 
     // timestamps!
     public readonly createdAt!: Date;
@@ -41,6 +44,10 @@ export default (sequelize: Sequelize) => {
       phone: {
         type: new DataTypes.STRING(128),
         allowNull: false,
+      },
+      social: {
+        type: new DataTypes.STRING(128),
+        allowNull: true,
       },
     },
     {
