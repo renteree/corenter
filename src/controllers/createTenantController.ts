@@ -15,6 +15,7 @@ export default async function createTenantController(req: Request, res: Response
       social,
       country,
       city,
+      cityId,
       title,
       description,
       tenantsDescription,
@@ -33,7 +34,7 @@ export default async function createTenantController(req: Request, res: Response
     };
 
     const user: User = await createUser({ phone, name, social });
-    const location: Location = await createLocation({ country, city });
+    const location: Location = await createLocation({ country, city, cityId });
     const createdTenant: Tenant = await createTenant({
       userId: user.id,
       locationId: location.id,

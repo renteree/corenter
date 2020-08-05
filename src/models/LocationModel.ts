@@ -6,7 +6,8 @@ import {
 export interface LocationAttributes {
   id: number;
   country: string;
-  city: string | null;
+  city: string;
+  cityId: string;
 }
 
 // Some attributes are optional in `User.build` and `User.create` calls
@@ -18,7 +19,9 @@ export class Location extends Model<LocationAttributes, LocationCreationAttribut
 
     public country!: string;
 
-    public city!: string | null; // for nullable fields
+    public city!: string;
+
+    public cityId!: string;
 }
 
 
@@ -36,7 +39,11 @@ export default (sequelize: Sequelize) => {
       },
       city: {
         type: new DataTypes.STRING(128),
-        allowNull: true,
+        allowNull: false,
+      },
+      cityId: {
+        type: new DataTypes.STRING(128),
+        allowNull: false,
       },
     },
     {
