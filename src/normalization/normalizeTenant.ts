@@ -1,13 +1,21 @@
+import ogs from 'open-graph-scraper';
 import { Tenant, TenantAttributes } from '../models/TenantModel';
 import { UserAttributes } from '../models/UserModel';
 import { LocationAttributes } from '../models/LocationModel';
+import reportError from '../common/reportError';
 
 interface NormalizedTenant extends Omit<TenantAttributes, 'userId'|'locationId'> {
   user?: Omit<UserAttributes, 'createdAt'>,
   location?: LocationAttributes,
+  image?: {
+    url: string;
+    width: string;
+    height: string;
+    type: string;
+  } | null
 }
 
-export default function normalizeTenant({
+export default async function normalizeTenant({
   id,
   title,
   description,
@@ -20,13 +28,24 @@ export default function normalizeTenant({
   housingType,
   currency,
   createdAt,
-}: Tenant): NormalizedTenant {
+}: Tenant): Promise<NormalizedTenant> {
   const {
     id: userId,
     phone,
     name,
     social,
   } = user;
+  let image = null;
+  if (social) {
+    try {
+      const { result } = await ogs({ url: social });
+      if (result.success) {
+        image = result.ogImage;
+      }
+    } catch (e) {
+      reportError(e);
+    }
+  }
 
   return {
     id,
@@ -46,5 +65,6 @@ export default function normalizeTenant({
     housingType,
     currency,
     createdAt,
+    image,
   };
 }
