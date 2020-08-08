@@ -16,7 +16,7 @@ export default async function getTenantController(req: Request, res: Response) {
       return res.sendStatus(404);
     }
 
-    const normalizedTenant = await normalizeTenant(result)
+    const normalizedTenant = await normalizeTenant(result);
 
     return res.send(normalizedTenant);
   } catch (e) {
