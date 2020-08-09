@@ -4,7 +4,7 @@ import { UserAttributes } from '../models/UserModel';
 import { LocationAttributes } from '../models/LocationModel';
 import reportError from '../common/reportError';
 
-type imageType = {
+type Image = {
   url: string;
   width: string;
   height: string;
@@ -14,7 +14,7 @@ type imageType = {
 interface NormalizedTenant extends Omit<TenantAttributes, 'userId'|'locationId'> {
   user: Omit<UserAttributes, 'createdAt'>,
   location: LocationAttributes,
-  image: imageType | null
+  image: Image | null,
 }
 
 export default async function normalizeTenant({

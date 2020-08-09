@@ -20,9 +20,7 @@ export default function tenantRoutes(app: Express) {
     '/tenant/:tenantId',
     celebrate({
       [Segments.PARAMS]: {
-        tenantId: Joi.number().integer()
-          .positive()
-          .required(),
+        tenantId: Joi.number().integer().positive().required(),
       },
     }),
     getTenantController,
