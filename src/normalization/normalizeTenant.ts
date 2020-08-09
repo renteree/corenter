@@ -4,15 +4,17 @@ import { UserAttributes } from '../models/UserModel';
 import { LocationAttributes } from '../models/LocationModel';
 import reportError from '../common/reportError';
 
+type imageType = {
+  url: string;
+  width: string;
+  height: string;
+  type: string;
+}
+
 interface NormalizedTenant extends Omit<TenantAttributes, 'userId'|'locationId'> {
-  user?: Omit<UserAttributes, 'createdAt'>,
-  location?: LocationAttributes,
-  image?: {
-    url: string;
-    width: string;
-    height: string;
-    type: string;
-  } | null
+  user: Omit<UserAttributes, 'createdAt'>,
+  location: LocationAttributes,
+  image: imageType | null
 }
 
 export default async function normalizeTenant({
@@ -40,7 +42,7 @@ export default async function normalizeTenant({
     try {
       const { result } = await ogs({ url: social });
       if (result.success) {
-        image = result.ogImage;
+        image = result.ogImage || null;
       }
     } catch (e) {
       reportError(e);
