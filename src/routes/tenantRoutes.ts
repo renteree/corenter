@@ -2,6 +2,7 @@ import { Express } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import listTenantController from '../controllers/listTenantController';
 import createTenantController from '../controllers/createTenantController';
+import getTenantController from '../controllers/getTenantController';
 
 export default function tenantRoutes(app: Express) {
   app.get(
@@ -13,6 +14,16 @@ export default function tenantRoutes(app: Express) {
       }).required(),
     }),
     listTenantController,
+  );
+
+  app.get(
+    '/tenant/:tenantId',
+    celebrate({
+      [Segments.PARAMS]: {
+        tenantId: Joi.number().integer().positive().required(),
+      },
+    }),
+    getTenantController,
   );
 
   app.post(

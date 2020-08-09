@@ -52,7 +52,9 @@ export default async function createTenantController(req: Request, res: Response
 
     if (!tenant) throw Error('tenant not found');
 
-    return res.send(normalizeTenant(tenant));
+    const normalizedTenant = await normalizeTenant(tenant);
+
+    return res.send(normalizedTenant);
   } catch (e) {
     return res.send(`Error: ${e}`);
   }

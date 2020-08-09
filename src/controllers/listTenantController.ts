@@ -14,9 +14,11 @@ export default async function listTenantController(req: Request, res: Response) 
     const result: Tenant[] = await Tenant.findAll(searchOptions);
     const count: Number = await Tenant.count(searchOptions);
 
+    const normalizedTenants = await Promise.all(result.map(normalizeTenant));
+
     const resData = {
       count,
-      tenants: result.map(normalizeTenant),
+      tenants: normalizedTenants,
     };
 
     return res.send(resData);
