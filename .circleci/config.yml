@@ -57,8 +57,13 @@ jobs:
       - heroku/check-authentication
       - checkout
       - setup_remote_docker
-      - heroku/push-docker-image
-      - heroku/release-docker-image
+      - heroku/push-docker-image:
+          app-name: $HEROKU_APP_NAME
+          process-types: web
+          recursive: true
+      - heroku/release-docker-image:
+          app-name: $HEROKU_APP_NAME
+          process-types: web
 
 workflows:
   build:
@@ -80,3 +85,11 @@ workflows:
           context: renteree
           requires:
             - docker_deployment_approval
+      - job_deployment_approval:
+          type: approval
+          requires:
+            - lint_test_build
+      - heroku/push-docker-image:
+          context: renteree
+          requires:
+            - job_deployment_approval
