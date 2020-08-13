@@ -2,6 +2,21 @@ version: 2.1
 
 orbs:
   node: circleci/node@1.1.6
+  heroku: circleci/heroku@1.2.0
+
+references:
+  ci_image: &ci_image
+    image: quay.io/reactiveops/ci-images:v8.0.1-stretch
+  set_environment_variables: &set_environment_variables
+    run:
+      name: Set Environment Variables
+      command: |
+        echo 'export DATABASE_HOST=$DATABASE_HOST' >> ${BASH_ENV}
+        echo 'export DATABASE_NAME=$DATABASE_NAME' >> ${BASH_ENV}
+        echo 'export DATABASE_PASSWORD=$DATABASE_PASSWORD' >> ${BASH_ENV}
+        echo 'export DATABASE_PORT=$DATABASE_PORT' >> ${BASH_ENV}
+        echo 'export DATABASE_URI=$DATABASE_URI' >> ${BASH_ENV}
+        echo 'export DATABASE_USER=$DATABASE_USER' >> ${BASH_ENV}
 
 jobs:
   lint_test_build:
@@ -24,7 +39,44 @@ jobs:
                 name: Run Build
                 command: npm run build
 
+  docker_build_push_deploy:
+    docker:
+      - *ci_image
+    steps:
+      - checkout
+#      - *set_environment_variables
+      - run:
+          name: Build and push a docker image
+          command: |
+            ./scripts/deploy.sh
+
+  deploy_with_orb:
+    executor: heroku/default
+    steps:
+      - heroku/install
+      - heroku/check-authentication
+      - checkout
+      - setup_remote_docker
+      - heroku/push-docker-image
+      - heroku/release-docker-image
+
 workflows:
   build:
     jobs:
       - lint_test_build
+      - deployment_approval:
+          type: approval
+          requires:
+            - lint_test_build
+      - deploy_with_orb:
+          context: renteree
+          requires:
+            - deployment_approval
+      - docker_deployment_approval:
+          type: approval
+          requires:
+            - lint_test_build
+      - docker_build_push_deploy:
+          context: renteree
+          requires:
+            - docker_deployment_approval
