@@ -46,6 +46,24 @@ jobs:
       - checkout
 #      - *set_environment_variables
       - run:
+          command: |
+            if [[ $(command -v heroku) == "" ]]; then
+              curl https://cli-assets.heroku.com/install.sh | sh
+            else
+              echo "Heroku is already installed. No operation was performed."
+            fi
+          name: Install Heroku CLI (If not installed)
+      - run:
+          command: |
+            if [[ $HEROKU_API_KEY == "" ]]; then
+              echo "No Heroku API key set, please set the HEROKU_API_KEY environment variable."
+              echo "This can be found by running the `heroku auth:token` command locally."
+              exit 1
+            else
+              echo "Heroku API key found."
+            fi
+          name: Verify HEROKU_API_KEY is set
+      - run:
           name: Build and push a docker image
           command: |
             ./scripts/deploy.sh
@@ -60,6 +78,7 @@ jobs:
       - run:
           name: Build and push a docker image
           command: |
+            heroku container:login
             heroku container:push -a $HEROKU_APP_NAME web
       - heroku/release-docker-image:
           app-name: $HEROKU_APP_NAME
