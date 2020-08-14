@@ -9,6 +9,8 @@ export default async function listTenantController(req: Request, res: Response) 
         Tenant.associations.user,
         Tenant.associations.location,
       ],
+      offset: parseInt(req.query.offset as string, 10),
+      limit: parseInt(req.query.limit as string, 10),
     };
 
     const result: Tenant[] = await Tenant.findAll(searchOptions);

@@ -1,8 +1,6 @@
-import ogs from 'open-graph-scraper';
 import { Tenant, TenantAttributes } from '../models/TenantModel';
 import { UserAttributes } from '../models/UserModel';
 import { LocationAttributes } from '../models/LocationModel';
-import reportError from '../common/reportError';
 
 type Image = {
   url: string;
@@ -37,17 +35,7 @@ export default async function normalizeTenant({
     name,
     social,
   } = user;
-  let image = null;
-  if (social) {
-    try {
-      const { result } = await ogs({ url: social });
-      if (result.success) {
-        image = result.ogImage || null;
-      }
-    } catch (e) {
-      reportError(e);
-    }
-  }
+  const image = null;
 
   return {
     id,
