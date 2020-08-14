@@ -12,4 +12,8 @@ export default {
   app: {
     domain: process.env.DOMAIN,
   },
+  google: {
+    cloudStorageKeyName: process.env.GOOGLE_CLOUD_STORAGE_KEY_NAME,
+    bucketName: process.env.STORAGE_BUCKET_NAME,
+  },
 };

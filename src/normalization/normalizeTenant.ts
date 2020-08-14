@@ -1,8 +1,6 @@
-import ogs from 'open-graph-scraper';
 import { Tenant, TenantAttributes } from '../models/TenantModel';
 import { UserAttributes } from '../models/UserModel';
 import { LocationAttributes } from '../models/LocationModel';
-import reportError from '../common/reportError';
 
 type Image = {
   url: string;
@@ -14,7 +12,6 @@ type Image = {
 interface NormalizedTenant extends Omit<TenantAttributes, 'userId'|'locationId'> {
   user: Omit<UserAttributes, 'createdAt'>,
   location: LocationAttributes,
-  image: Image | null,
 }
 
 export default async function normalizeTenant({
@@ -29,6 +26,7 @@ export default async function normalizeTenant({
   willPayFee,
   housingType,
   currency,
+  avatar,
   createdAt,
 }: Tenant): Promise<NormalizedTenant> {
   const {
@@ -37,17 +35,6 @@ export default async function normalizeTenant({
     name,
     social,
   } = user;
-  let image = null;
-  if (social) {
-    try {
-      const { result } = await ogs({ url: social });
-      if (result.success) {
-        image = result.ogImage || null;
-      }
-    } catch (e) {
-      reportError(e);
-    }
-  }
 
   return {
     id,
@@ -67,6 +54,6 @@ export default async function normalizeTenant({
     housingType,
     currency,
     createdAt,
-    image,
+    avatar,
   };
 }

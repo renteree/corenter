@@ -17,6 +17,7 @@ export interface TenantAttributes {
   willPayFee: boolean;
   housingType: string;
   currency: string;
+  avatar: string | null;
   createdAt?: Date;
 }
 
@@ -46,6 +47,8 @@ export class Tenant extends Model<TenantAttributes, TenantCreationAttributes>
     public housingType!: string;
 
     public currency!: string;
+
+    public avatar!: string | null;
 
     // timestamps!
     public readonly createdAt!: Date;
@@ -107,6 +110,10 @@ export default (sequelize: Sequelize) => {
       currency: {
         type: new DataTypes.STRING(8),
         allowNull: false,
+      },
+      avatar: {
+        type: new DataTypes.STRING(128),
+        allowNull: true,
       },
     },
     {
