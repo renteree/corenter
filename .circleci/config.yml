@@ -57,10 +57,10 @@ jobs:
       - heroku/check-authentication
       - checkout
       - setup_remote_docker
-      - heroku/push-docker-image:
-          app-name: $HEROKU_APP_NAME
-          process-types: web
-          recursive: true
+      - run:
+          name: Build and push a docker image
+          command: |
+            heroku container:push -a $HEROKU_APP_NAME web
       - heroku/release-docker-image:
           app-name: $HEROKU_APP_NAME
           process-types: web
