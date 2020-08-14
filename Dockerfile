@@ -1,5 +1,8 @@
 FROM node:14-alpine
 
+ENV DOMAIN http://renteree.com
+ENV PORT 8080
+
 WORKDIR /build
 COPY package.json package-lock.json ./
 
