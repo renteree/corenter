@@ -46,15 +46,25 @@ workflows:
   build:
     jobs:
       - lint_test_build
-      - deployment_approval:
-          type: approval
+      - docker_build_push_deploy:
+          name: master_auto_deploy
+          context: renteree
           requires:
             - lint_test_build
           filters:
             branches:
               only:
                 - master
+      - deployment_approval:
+          type: approval
+          requires:
+            - lint_test_build
+          filters:
+            branches:
+              ignore:
+                - master
       - docker_build_push_deploy:
+          name: optional_deploy
           context: renteree
           requires:
             - deployment_approval
