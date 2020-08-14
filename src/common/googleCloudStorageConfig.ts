@@ -6,7 +6,7 @@ const serviceKey = path.join(__dirname, `../../config/${config.google.cloudStora
 
 const storage = new Storage({
   keyFilename: serviceKey,
-  projectId: 'renteree',
+  projectId: config.google.googleConsoleProjectId,
 });
 
 export default storage;

@@ -15,5 +15,6 @@ export default {
   google: {
     cloudStorageKeyName: process.env.GOOGLE_CLOUD_STORAGE_KEY_NAME,
     bucketName: process.env.STORAGE_BUCKET_NAME,
+    googleConsoleProjectId: process.env.GOOGLE_CONSOLE_PROJECT_ID,
   },
 };

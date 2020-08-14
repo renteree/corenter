@@ -6,7 +6,6 @@ import { initDB } from './common/db';
 import tenantRoutes from './routes/tenantRoutes';
 import config from './config';
 import multerConfig from './common/multerConfig';
-// import { Storage } from '@google-cloud/storage';
 
 initDB();
 const app = express();
