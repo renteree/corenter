@@ -5,6 +5,7 @@ import cors from 'cors';
 import { initDB } from './common/db';
 import tenantRoutes from './routes/tenantRoutes';
 import config from './config';
+import multerConfig from './common/multerConfig';
 
 initDB();
 const app = express();
@@ -20,6 +21,7 @@ const options:cors.CorsOptions = {
 
 app.use(cors(options));
 
+app.use(multerConfig().single('file'));
 app.use(bodyParser.json());
 
 tenantRoutes(app);

@@ -1,4 +1,6 @@
 import { Response, Request } from 'express';
+import sharp from 'sharp';
+import { v4 as uuidv4 } from 'uuid';
 import { Tenant } from '../models/TenantModel';
 import { User } from '../models/UserModel';
 import { Location } from '../models/LocationModel';
@@ -6,6 +8,8 @@ import createTenant from '../services/createTenant';
 import createUser from '../services/createUser';
 import createLocation from '../services/createLocation';
 import normalizeTenant from '../normalization/normalizeTenant';
+import uploadImage from '../common/uploadFile';
+
 
 export default async function createTenantController(req: Request, res: Response) {
   try {
@@ -26,6 +30,8 @@ export default async function createTenantController(req: Request, res: Response
       currency,
     } = req.body;
 
+    const { file } = req;
+
     const searchOptions = {
       include: [
         Tenant.associations.user,
@@ -34,6 +40,22 @@ export default async function createTenantController(req: Request, res: Response
     };
 
     const user: User = await createUser({ phone, name, social });
+
+    let imageUrl = null;
+
+    if (file) {
+      const buffer = await sharp(file.buffer)
+        .toFormat('jpeg')
+        .resize(400)
+        .withMetadata() // Keeps initial rotate state
+        .toBuffer();
+
+      imageUrl = await uploadImage({
+        fileName: `${user.id}-${uuidv4()}.jpeg`,
+        buffer,
+      });
+    }
+
     const location: Location = await createLocation({ country, city, cityId });
     const createdTenant: Tenant = await createTenant({
       userId: user.id,
@@ -46,6 +68,7 @@ export default async function createTenantController(req: Request, res: Response
       willPayFee,
       housingType,
       currency,
+      avatar: imageUrl,
     });
 
     const tenant: Tenant | null = await Tenant.findByPk(createdTenant.id, searchOptions);

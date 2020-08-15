@@ -12,7 +12,6 @@ type Image = {
 interface NormalizedTenant extends Omit<TenantAttributes, 'userId'|'locationId'> {
   user: Omit<UserAttributes, 'createdAt'>,
   location: LocationAttributes,
-  image: Image | null,
 }
 
 export default async function normalizeTenant({
@@ -27,6 +26,7 @@ export default async function normalizeTenant({
   willPayFee,
   housingType,
   currency,
+  avatar,
   createdAt,
 }: Tenant): Promise<NormalizedTenant> {
   const {
@@ -35,7 +35,6 @@ export default async function normalizeTenant({
     name,
     social,
   } = user;
-  const image = null;
 
   return {
     id,
@@ -55,6 +54,6 @@ export default async function normalizeTenant({
     housingType,
     currency,
     createdAt,
-    image,
+    avatar,
   };
 }

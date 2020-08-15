@@ -3,6 +3,7 @@ node_modules
 .idea
 npm-debug.log
 dist
+config/renteree*
 
 # Local development
 *.env
