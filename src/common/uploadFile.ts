@@ -16,10 +16,11 @@ const uploadImage = (file: File) : Promise<string> => new Promise((resolve, reje
   const blobStream = blob.createWriteStream({
     resumable: false,
   });
-  blobStream.on('finish', () => {
-    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-    resolve(publicUrl);
-  })
+  blobStream
+    .on('finish', () => {
+      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+      resolve(publicUrl);
+    })
     .on('error', (e) => {
       reject(reportError(e));
     })

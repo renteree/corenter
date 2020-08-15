@@ -30,9 +30,7 @@ export default async function createTenantController(req: Request, res: Response
       currency,
     } = req.body;
 
-    const {
-      file,
-    } = req;
+    const { file } = req;
 
     const searchOptions = {
       include: [
