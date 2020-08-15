@@ -1,5 +1,4 @@
 import { Storage } from '@google-cloud/storage';
-import path from 'path';
 import config from '../config';
 
 const storage = new Storage({
