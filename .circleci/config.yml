@@ -37,7 +37,7 @@ jobs:
           description: Replacement of orb command heroku/push-docker-image because of its syntax error
           command: |
             heroku container:login
-            heroku container:push -a $HEROKU_APP_NAME web
+            heroku container:push -a $HEROKU_APP_NAME web --arg DATABASE_HOST=$DATABASE_HOST DATABASE_PORT=$DATABASE_PORT DATABASE_USER=$DATABASE_USER DATABASE_PASSWORD=$DATABASE_PASSWORD DATABASE_NAME=$DATABASE_NAME DATABASE_URI=$DATABASE_URI DOMAIN=$DOMAIN STORAGE_BUCKET_NAME=$STORAGE_BUCKET_NAME GOOGLE_CONSOLE_PROJECT_ID=$GOOGLE_CONSOLE_PROJECT_ID STORAGE_BUCKET_PRIVATE_KEY=$STORAGE_BUCKET_PRIVATE_KEY STORAGE_BUCKET_CLIENT_EMAIL=$STORAGE_BUCKET_CLIENT_EMAIL
       - heroku/release-docker-image:
           app-name: $HEROKU_APP_NAME
           process-types: web
