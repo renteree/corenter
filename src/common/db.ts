@@ -5,6 +5,9 @@ import tenantInit, { Tenant } from '../models/TenantModel';
 import userInit, { User } from '../models/UserModel';
 import locationInit, { Location } from '../models/LocationModel';
 
+console.log(process.env);
+console.log(process.env.DATABASE_USER);
+console.log(config.database);
 const sequelize = new Sequelize(config.database.uri, sequelizeOptions);
 export const initDB = () => {
   userInit(sequelize);
