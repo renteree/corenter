@@ -2,10 +2,11 @@ import { Storage } from '@google-cloud/storage';
 import path from 'path';
 import config from '../config';
 
-const serviceKey = path.join(__dirname, `../../config/${config.google.cloudStorageKeyName}`);
-
 const storage = new Storage({
-  keyFilename: serviceKey,
+  credentials: {
+    client_email: config.google.storageBucketClientEmail,
+    private_key: config.google.storageBucketPrivateKey,
+  },
   projectId: config.google.googleConsoleProjectId,
 });
 
